@@ -23,8 +23,8 @@ let x = 1;
 { let x = 2; }
 ```
 - A) 2
-- B) 1
-- C) undefined
+- B) undefined
+- C) 1
 - D) Erreur
 
 **Q2.** Dans une fonction fléchée, `this` désigne :
@@ -43,14 +43,14 @@ const compteur = fabrique();
 compteur(); compteur(); compteur();
 ```
 - A) 1
-- B) 3
-- C) undefined
-- D) 0
+- B) undefined
+- C) 0
+- D) 3
 
 **Q4.** Quel appel transforme `[1, 2, 3]` en `[2, 4, 6]` ?
-- A) `arr.filter(x => x * 2)`
-- B) `arr.forEach(x => x * 2)`
-- C) `arr.map(x => x * 2)`
+- A) `arr.map(x => x * 2)`
+- B) `arr.filter(x => x * 2)`
+- C) `arr.forEach(x => x * 2)`
 - D) `arr.reduce(x => x * 2)`
 
 **Q5.** Que vaut `b` ?
@@ -71,16 +71,16 @@ const { etat: b = 'OK' } = { nom: 'P-12' };
 async function f() { return 42; }
 f().then(v => console.log(v));
 ```
-- A) `Promise`
-- B) `42`
+- A) `42`
+- B) `Promise`
 - C) `undefined`
 - D) rien
 
 **Q7.** `import { Store } from './store.js';` suppose que `store.js` contient :
 - A) `export default Store`
-- B) `export { Store }` (ou `export const Store`)
-- C) `module.exports = Store`
-- D) `window.Store = Store`
+- B) `module.exports = Store`
+- C) `window.Store = Store`
+- D) `export { Store }` (ou `export const Store`)
 
 **Q8.** Quelle affirmation sur les classes ES6 est exacte ?
 - A) Elles remplacent le système de prototypes
@@ -90,13 +90,13 @@ f().then(v => console.log(v));
 
 **Q9.** `JSON.parse('{"valeur": 42}')` renvoie :
 - A) la chaîne `'{"valeur": 42}'`
-- B) un objet `{ valeur: 42 }`
-- C) `42`
+- B) `42`
+- C) un objet `{ valeur: 42 }`
 - D) une erreur
 
 **Q10.** Une requête `fetch('/api/x')` renvoie :
-- A) directement les données
-- B) une Promise résolue avec une `Response`
+- A) une Promise résolue avec une `Response`
+- B) directement les données
 - C) un objet synchrone
 - D) le code HTTP sous forme de nombre
 
@@ -106,15 +106,15 @@ f().then(v => console.log(v));
 
 **Q11.** Dans le motif MVVM, le **ViewModel** porte principalement :
 - A) le rendu des composants
-- B) l'état observable et les données dérivées
-- C) les appels réseau bas niveau
-- D) les feuilles de style
+- B) les appels réseau bas niveau
+- C) les feuilles de style
+- D) l'état observable et les données dérivées
 
 **Q12.** En ExtJS, déclarer une propriété dans le bloc `config` d'une classe :
-- A) génère automatiquement un getter et un setter
-- B) la rend privée
-- C) interdit toute modification
-- D) n'a d'effet qu'au rendu
+- A) la rend privée
+- B) n'a d'effet qu'au rendu
+- C) génère automatiquement un getter et un setter
+- D) interdit toute modification
 
 **Q13.** Le **databinding** déclaratif sert avant tout à :
 - A) accélérer les requêtes serveur
@@ -123,62 +123,14 @@ f().then(v => console.log(v));
 - D) router les URL
 
 **Q14.** Dans une chaîne de build front moderne, `tree shaking` désigne :
-- A) le tri des dépendances par ordre alphabétique
-- B) l'élimination du code non atteint du bundle final
+- A) l'élimination du code non atteint du bundle final
+- B) le tri des dépendances par ordre alphabétique
 - C) la minification des images
 - D) la mise en cache navigateur
 
 **Q15.** En ExtJS (toute version), un **store** est :
 - A) une feuille de style globale
-- B) une collection d'enregistrements typés, alimentée par un proxy
-- C) un conteneur de mise en page
-- D) un gestionnaire de routes
+- B) un conteneur de mise en page
+- C) un gestionnaire de routes
+- D) une collection d'enregistrements typés, alimentée par un proxy
 
----
-
-## Corrigé
-
-| Q | Réponse | Pourquoi (bref) |
-|---|---|---|
-| 1 | **B** | `let` est à portée de bloc ; le `x` interne n'affecte pas l'externe. |
-| 2 | **B** | La fonction fléchée capture le `this` lexical de définition. |
-| 3 | **B** | La closure conserve `n` ; trois incréments → 3. |
-| 4 | **C** | `map` transforme chaque élément et renvoie un nouveau tableau. |
-| 5 | **C** | Clé absente → valeur par défaut `'OK'` (renommage `etat` → `b`). |
-| 6 | **B** | Une fonction `async` renvoie une Promise résolue avec `42`. |
-| 7 | **B** | Import nommé → export nommé correspondant. |
-| 8 | **B** | Les classes ES6 sont du sucre au-dessus des prototypes. |
-| 9 | **B** | `JSON.parse` produit un objet JavaScript. |
-| 10 | **B** | `fetch` renvoie une Promise résolue avec une `Response`. |
-| 11 | **B** | Le ViewModel = état observable + données dérivées. |
-| 12 | **A** | Le config system génère getter/setter (et apply/update). |
-| 13 | **B** | Le binding synchronise UI ↔ état automatiquement. |
-| 14 | **B** | Le tree shaking retire le code mort du bundle. |
-| 15 | **B** | Un store est une collection d'enregistrements via un proxy. |
-
----
-
-## Grille d'interprétation (formateur)
-
-> **Règle d'or : le plancher prime sur le score total.** Un score global élevé porté par les paliers 2–3 ne compense pas un palier 1 fragile.
-
-**Palier 1 (Q1–Q5) - plancher.**
-- **5/5** : prérequis JavaScript acquis → prêt pour le pré-travail puis J1.
-- **3–4/5** : lacunes ciblées → le pré-travail (modules 1–2) doit être complété sérieusement.
-- **≤ 2/5** : prérequis non atteints → ce participant n'est pas prêt pour une session « confirmés ». Signaler en amont.
-
-**Palier 2 (Q6–Q10) - niveau attendu.**
-- Mesure l'aisance avec le JavaScript moderne et l'outillage. Un score faible ici (avec plancher acquis) se rattrape par le pré-travail.
-
-**Palier 3 (Q11–Q15) - profil avancé.**
-- **Ne conditionne pas l'admission.** Sert à **détecter les profils expérimentés**, notamment d'anciens praticiens ExtJS (4/5) qui répondront juste à Q12 et Q15.
-
-### Détection de bimodalité → deux sessions
-
-Croiser le **palier 3** sur l'ensemble du groupe :
-
-- Si une **fraction nette** du groupe score haut au palier 3 (≥ 4/5, en particulier Q12 et Q15 justes) **tandis qu'une autre fraction y score ~0**, le groupe est **bimodal** : des vétérans ExtJS 4/5 côtoient des néophytes complets.
-- Dans ce cas, **recommander deux sessions** (ou, a minima, le dédoublement socle/extension agressif + J0 obligatoire). Une session unique nivellerait par le bas ou perdrait les débutants.
-- Si le palier 3 est **uniformément bas** (population homogène « JS confirmé / ExtJS néophyte »), l'hypothèse de calibrage (a) tient : session unique, J1 en montée en charge sur le paradigme Ext.
-
-> Synthèse à produire après dépouillement : distribution des scores par palier + signalement explicite des participants sous le plancher et de toute bimodalité détectée.
