@@ -13,6 +13,21 @@ Ext.define('VIGIE.domain.Equipement', {
         etat: 'inconnu'
     },
 
+    // --- lab 1 (extension E3) : fabrique statique ---
+    // `statics` attache la fabrique à la CLASSE (VIGIE.domain.Equipement.depuisCapteur),
+    // pas aux instances. Préférable à une fonction libre : elle reste dans le
+    // namespace de la classe (découvrable, chargée avec elle) et pourra accéder
+    // aux futurs membres statiques/privés sans polluer l'espace global.
+    statics: {
+        depuisCapteur: function (data) {
+            data = data || {};
+            return new VIGIE.domain.Equipement({
+                nom:  data.id,
+                etat: data.statut
+            });
+        }
+    },
+
     constructor: function (cfg) {
         this.initConfig(cfg);
     },

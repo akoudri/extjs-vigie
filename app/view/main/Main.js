@@ -11,5 +11,6 @@ Ext.define('VIGIE.view.main.Main', {
 
     title: 'VIGIE - Supervision (lab 1)',
     bodyPadding: 16,
-    html: 'Socle &amp; système de classes en place.<br>'
+    html: 'Socle &amp; système de classes en place.<br>' +
+          'Ouvrir la console : tests <code>Equipement</code> et <code>SeuilTelemetrie</code> (config system).'
 });
