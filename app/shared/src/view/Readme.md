@@ -1,1 +1,0 @@
-# VIGIE shared/app

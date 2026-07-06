@@ -22,21 +22,16 @@
     }
   },
 
-  "classpath": ["app/shared/src","app/${build.id}/src"],
-  "overrides": ["app/shared/overrides","app/${build.id}/overrides"],
+  "classpath": ["app"],
+  "overrides": ["app/overrides"],
 
   "sass": {
     "namespace": "VIGIE",
-    "etc": [
-      "sass/etc/all.scss"
-    ],
     "var": [
-      "app/shared/sass/var.scss",
-      "app/${build.id}/sass/var.scss"
+      "app/sass/var.scss"
     ],
     "src": [
-      "app/shared/src/sass/src.scss",
-      "app/${build.id}/sass/src.scss"
+      "app/sass/src.scss"
     ]
   },
 
@@ -139,5 +134,5 @@
   "archivePath": "archive/${build.id}",
 
   "ignore": ["(^|/)CVS(/?$|/.*?$)"],
-  "id": "b50dca0f-99b8-487a-ac29-b5e47d5b1006"
+  "id": "339a264c-7267-4a41-bace-4af6fe6aebbb"
 }
