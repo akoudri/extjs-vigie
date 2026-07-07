@@ -9,6 +9,14 @@ Ext.define('VIGIE.Application', {
 
     mainView: 'VIGIE.view.main.Main',
 
+    // E1 : charger les deux Models au démarrage câble l'association
+    // Equipement → alarmes() de façon déterministe (sans require croisé).
+    models: ['Equipement', 'Alarme'],
+
+    // E2 : instancie le store source `alarmes` (storeId global) au démarrage,
+    // pour que le ChainedStore AlarmesActives puisse le résoudre par son nom.
+    stores: ['Alarmes'],
+
     launch: function () {
         // Retirer l'écran de chargement injecté par index.html
         var splash = document.getElementById('splash');

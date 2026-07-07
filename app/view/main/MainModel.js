@@ -1,13 +1,9 @@
 /**
- * ViewModel de la vue principale - Lab 3.
+ * ViewModel de la vue principale - Lab 4.
  *
- * Porte l'état applicatif (`equipementCourant`) et des *formulas* d'affichage.
- *
- * Pourquoi des formulas ? `equipementCourant` est ici une classe à config system
- * (Lab M1) : un binding direct `{equipementCourant.nom}` ne traverse pas le getter
- * de config → rendu vide. Les formulas appellent explicitement getNom()/getEtat().
- * Au Lab 4, Equipement devient un Ext.data.Model et le binding direct remplacera
- * ces formulas.
+ * `equipementCourant` est désormais un `Ext.data.Model` (sélection de grille) :
+ * le binding direct `{equipementCourant.nom}` se résout via les fields - les
+ * formulas de contournement nomCourant/etatCourant du Lab 3 disparaissent.
  */
 Ext.define('VIGIE.view.main.MainModel', {
     extend: 'Ext.app.ViewModel',
@@ -16,32 +12,25 @@ Ext.define('VIGIE.view.main.MainModel', {
     data: {
         equipementCourant: null,
 
-        // Extension E2 : source unique d'un binding bidirectionnel (champ éditable + écho).
-        seuil: 80,
+        // E1 : nombre d'alarmes de l'équipement courant. Alimenté par le
+        // ViewController après chargement du store d'association eq.alarmes()
+        // (chargement asynchrone → on passe par une clé du ViewModel).
+        nbAlarmes: 0
+    },
 
-        // Extension E3 : valeur haute fréquence (télémétrie simulée), alimentée
-        // par le ViewController. Initialisée à 0 pour que la formula ne casse pas
-        // avant le premier tick.
-        mesure: 0
+    stores: {
+        equipements: { type: 'equipements' },
+
+        // E2 : chained store branché sur le store source global `alarmes`.
+        alarmesActives: { type: 'alarmesactives' }
     },
 
     formulas: {
-        nomCourant:  function (get) { var e = get('equipementCourant'); return e ? e.getNom()  : '—'; },
-        etatCourant: function (get) { var e = get('equipementCourant'); return e ? e.getEtat() : '—'; },
-
-        // Extension E1 : visibilité conditionnelle d'un bandeau d'alerte.
+        // Conservée (extension M3 / requise par les tests du Lab D8).
+        // equipementCourant est un Model → on lit le field via get('etat').
         enDefaut: function (get) {
             var e = get('equipementCourant');
-            return !!e && e.getEtat() === 'DEFAUT';
-        },
-
-        // Extension E3 : formula dépendant d'une valeur haute fréquence.
-        // `console.count` matérialise le churn : elle est recalculée à CHAQUE
-        // changement de `mesure` (≈ 5×/s ici). Lecture seule, aucun effet de bord
-        // sur l'état (sinon : risque de boucle de recalcul).
-        mesureFormatee: function (get) {
-            console.count('[E3] recalcul mesureFormatee');
-            return get('mesure').toFixed(1) + ' °C';
+            return !!e && e.get('etat') === 'DEFAUT';
         }
     }
 });
