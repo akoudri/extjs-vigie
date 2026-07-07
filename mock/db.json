@@ -1,172 +1,21 @@
 {
   "sites": [
-    {
-      "id": 1,
-      "nom": "Usine Nord",
-      "region": "Hauts-de-France"
-    },
-    {
-      "id": 2,
-      "nom": "Usine Sud",
-      "region": "Occitanie"
-    }
+    { "id": 1, "nom": "Usine Nord", "region": "Hauts-de-France" },
+    { "id": 2, "nom": "Usine Sud",  "region": "Occitanie" }
   ],
   "zones": [
-    {
-      "id": 1,
-      "siteId": 1,
-      "nom": "Atelier A"
-    },
-    {
-      "id": 2,
-      "siteId": 2,
-      "nom": "Atelier B"
-    }
+    { "id": 1, "siteId": 1, "nom": "Atelier A" },
+    { "id": 2, "siteId": 2, "nom": "Atelier B" }
   ],
   "equipements": [
-    {
-      "id": 1,
-      "zoneId": 1,
-      "nom": "Pompe P-12",
-      "etat": "OK",
-      "dateInstall": "2021-03-12"
-    },
-    {
-      "id": 2,
-      "zoneId": 1,
-      "nom": "Vanne V-3",
-      "etat": "DEFAUT",
-      "dateInstall": "2019-09-01"
-    },
-    {
-      "id": 3,
-      "zoneId": 2,
-      "nom": "Moteur M-7",
-      "etat": "MAINTENANCE",
-      "dateInstall": "2022-01-20"
-    }
+    { "id": 1, "zoneId": 1, "nom": "Pompe P-12", "etat": "OK",          "dateInstall": "2021-03-12" },
+    { "id": 2, "zoneId": 1, "nom": "Vanne V-3",  "etat": "DEFAUT",      "dateInstall": "2019-09-01" },
+    { "id": 3, "zoneId": 2, "nom": "Moteur M-7", "etat": "MAINTENANCE", "dateInstall": "2022-01-20" }
   ],
   "alarmes": [
-    {
-      "id": 1,
-      "equipementId": 2,
-      "site": "Usine Nord",
-      "severite": "haute",
-      "message": "Pression basse",
-      "acquittee": true,
-      "horodatage": "2024-06-01T08:12:00"
-    },
-    {
-      "id": 2,
-      "equipementId": 1,
-      "site": "Usine Nord",
-      "severite": "moyenne",
-      "message": "Température élevée",
-      "acquittee": false,
-      "horodatage": "2024-06-01T09:03:00"
-    },
-    {
-      "id": 3,
-      "equipementId": 3,
-      "site": "Usine Sud",
-      "severite": "basse",
-      "message": "Maintenance planifiée",
-      "acquittee": true,
-      "horodatage": "2024-06-01T10:20:00"
-    },
-    {
-      "id": 4,
-      "equipementId": 3,
-      "site": "Usine Sud",
-      "severite": "haute",
-      "message": "Vibration anormale",
-      "acquittee": true,
-      "horodatage": "2024-06-01T11:45:00"
-    }
-  ],
-  "arborescence": [
-    {
-      "text": "Usine Nord",
-      "type": "site",
-      "site": "Usine Nord",
-      "expanded": true,
-      "children": [
-        {
-          "text": "Atelier A",
-          "type": "zone",
-          "expanded": true,
-          "children": [
-            {
-              "text": "Pompe P-12",
-              "type": "equipement",
-              "equipementId": 1,
-              "site": "Usine Nord",
-              "leaf": true
-            },
-            {
-              "text": "Vanne V-3",
-              "type": "equipement",
-              "equipementId": 2,
-              "site": "Usine Nord",
-              "leaf": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "text": "Usine Sud",
-      "type": "site",
-      "site": "Usine Sud",
-      "expanded": true,
-      "children": [
-        {
-          "text": "Atelier B",
-          "type": "zone",
-          "expanded": true,
-          "children": [
-            {
-              "text": "Moteur M-7",
-              "type": "equipement",
-              "equipementId": 3,
-              "site": "Usine Sud",
-              "leaf": true
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "mesures": [
-    {
-      "id": 1,
-      "equipementId": 1,
-      "horodatage": "2024-06-01T08:00:00",
-      "valeur": 42
-    },
-    {
-      "id": 2,
-      "equipementId": 1,
-      "horodatage": "2024-06-01T08:05:00",
-      "valeur": 47
-    },
-    {
-      "id": 3,
-      "equipementId": 1,
-      "horodatage": "2024-06-01T08:10:00",
-      "valeur": 51
-    },
-    {
-      "id": 4,
-      "equipementId": 2,
-      "horodatage": "2024-06-01T08:00:00",
-      "valeur": 88
-    },
-    {
-      "id": 5,
-      "equipementId": 2,
-      "horodatage": "2024-06-01T08:05:00",
-      "valeur": 91
-    }
+    { "id": 1, "equipementId": 2, "site": "Usine Nord", "severite": "haute",   "message": "Pression basse",        "acquittee": false, "horodatage": "2024-06-01T08:12:00" },
+    { "id": 2, "equipementId": 1, "site": "Usine Nord", "severite": "moyenne", "message": "Température élevée",     "acquittee": false, "horodatage": "2024-06-01T09:03:00" },
+    { "id": 3, "equipementId": 3, "site": "Usine Sud",  "severite": "basse",   "message": "Maintenance planifiée", "acquittee": true,  "horodatage": "2024-06-01T10:20:00" },
+    { "id": 4, "equipementId": 3, "site": "Usine Sud",  "severite": "haute",   "message": "Vibration anormale",    "acquittee": false, "horodatage": "2024-06-01T11:45:00" }
   ]
 }

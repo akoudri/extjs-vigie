@@ -2,3 +2,5 @@
 node_modules
 build
 generatedFiles
+mock/db-large.json
+.playwright-mcp

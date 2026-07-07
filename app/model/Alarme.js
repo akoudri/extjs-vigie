@@ -1,25 +1,28 @@
 /**
- * Lab 4 - Extension E1 : Model `Alarme` associé à `Equipement`.
+ * Lab 5 - Modèle d'alarme.
  *
- * Le field `equipementId` porte un `reference: 'Equipement'` : c'est cette clé
- * étrangère déclarée qui génère, côté Equipement, le store d'association
- * `equipement.alarmes()`. L'association n'existe QUE si ce Model est chargé
- * (d'où le `requires` sur VIGIE.model.Alarme dans le Model Equipement).
+ * Le proxy écrit en PATCH (writeAllFields:false) pour ne pousser que le champ
+ * modifié (l'acquittement) sans écraser le reste de l'enregistrement côté
+ * json-server.
  */
 Ext.define('VIGIE.model.Alarme', {
-    extend: 'VIGIE.model.Base',
+    extend: 'Ext.data.Model',
 
     fields: [
-        { name: 'id', type: 'int' },
-        { name: 'equipementId', reference: 'Equipement' },
-        { name: 'severite',  type: 'string' },
-        { name: 'message',   type: 'string' },
-        { name: 'acquittee', type: 'boolean' }
+        { name: 'id',           type: 'int' },
+        { name: 'equipementId', type: 'int' },
+        { name: 'site',         type: 'string' },
+        { name: 'severite',     type: 'string' },
+        { name: 'message',      type: 'string' },
+        { name: 'acquittee',    type: 'boolean' },
+        { name: 'horodatage',   type: 'date', dateFormat: 'c' }
     ],
 
     proxy: {
         type: 'rest',
         url: 'http://localhost:3000/alarmes',
-        reader: { type: 'json' }   // tableau nu de json-server : pas de rootProperty
+        reader: { type: 'json' },
+        writer: { type: 'json', writeAllFields: false },
+        actionMethods: { create: 'POST', read: 'GET', update: 'PATCH', destroy: 'DELETE' }
     }
 });

@@ -1,12 +1,12 @@
 /**
- * Shell applicatif de VIGIE - Lab 4 (couche données).
+ * Shell applicatif de VIGIE — Lab D4 (couche données).
  *
  * Maître-détail réel : une grille (ouest) liée au store `{equipements}` ;
  * sa sélection alimente `{equipementCourant}` ; le détail (centre) lit
  * directement les fields du Model via binding (`{equipementCourant.nom}`).
  *
  * Le relais d'événement `equipementchoisi` (Lab D3) resservira pour l'arbre
- * des sites au Lab 6 ; ici, c'est le binding de sélection de grille qui pilote.
+ * des sites au Lab D6 ; ici, c'est le binding de sélection de grille qui pilote.
  */
 Ext.define('VIGIE.view.main.Main', {
     extend: 'Ext.panel.Panel',
@@ -14,6 +14,11 @@ Ext.define('VIGIE.view.main.Main', {
 
     controller: 'main',
     viewModel: 'main',
+
+    requires: [
+        'VIGIE.view.alarmes.Journal',
+        'VIGIE.view.alarmes.JournalBuffered'
+    ],
 
     layout: 'border',
 
@@ -30,8 +35,6 @@ Ext.define('VIGIE.view.main.Main', {
                 { xtype: 'component', html: '<b>VIGIE</b> — Supervision' },
                 { xtype: 'tbfill' },
                 { xtype: 'textfield', emptyText: 'Filtrer…', width: 200 },
-                // E3 : déclenche un chargement par Promise (avec catch → alerte).
-                { text: 'Tester chargement', handler: 'onTesterChargement' },
                 { text: 'À propos', reference: 'btnApropos', handler: 'onApropos' }
             ]
         },
@@ -50,38 +53,15 @@ Ext.define('VIGIE.view.main.Main', {
                 { text: 'État', dataIndex: 'etat', width: 100 }
             ]
         },
+        // Lab D5 : la région centrale accueille le journal d'alarmes.
+        // Extension E3 : un onglet supplémentaire montre la même donnée via
+        // un BufferedStore distant (pages chargées au défilement).
         {
             region: 'center',
-            xtype: 'panel',
-            title: 'Détail équipement',
-            // E1 : le titre reflète le nombre d'alarmes de l'équipement courant.
-            bind: { title: 'Détail équipement — {nbAlarmes} alarme(s)' },
-            bodyPadding: 12,
-            layout: { type: 'vbox', align: 'stretch' },
-            defaultType: 'displayfield',
+            xtype: 'tabpanel',
             items: [
-                { fieldLabel: 'Nom',  bind: '{equipementCourant.nom}' },
-                { fieldLabel: 'État', bind: '{equipementCourant.etat}' },
-                {
-                    xtype: 'component', padding: '8 0 0 0',
-                    html: '<b style="color:#E5534B">Équipement en défaut</b>',
-                    bind: { hidden: '{!enDefaut}' }
-                }
-            ]
-        },
-        {
-            // E2 : la grille lit le chained store ; elle reflète la source
-            // (non acquittées) sans jamais la recharger.
-            region: 'south',
-            xtype: 'grid',
-            title: 'Alarmes actives',
-            height: 160,
-            split: true,
-            collapsible: true,
-            bind: { store: '{alarmesActives}' },
-            columns: [
-                { text: 'Sévérité', dataIndex: 'severite', width: 100 },
-                { text: 'Message',  dataIndex: 'message',  flex: 1 }
+                { xtype: 'journal-alarmes' },
+                { xtype: 'journal-alarmes-buffered' }
             ]
         }
     ]
