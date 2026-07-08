@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Trivy - vulnérabilités des dépendances
+      - name: Trivy - vulnérabilités des dépendances (tableau)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
@@ -36,6 +36,32 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
+          format: table
+
+      - name: Trivy - vulnérabilités des dépendances (SARIF)
+        if: always()
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          format: sarif
+          output: trivy-results.sarif
+
+      - name: Upload SARIF vers GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-fs
+
+      - name: Upload rapport JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-results.sarif
+          retention-days: 30
 
   build-and-push:
     runs-on: ubuntu-latest
