@@ -139,6 +139,38 @@
       ]
     }
   ],
+  "statistiques": [
+    {
+      "id": 1,
+      "indicateur": "Alarmes critiques actives",
+      "valeur": 2,
+      "unite": ""
+    },
+    {
+      "id": 2,
+      "indicateur": "Équipements en défaut",
+      "valeur": 1,
+      "unite": ""
+    },
+    {
+      "id": 3,
+      "indicateur": "Disponibilité Usine Nord",
+      "valeur": 99.2,
+      "unite": "%"
+    },
+    {
+      "id": 4,
+      "indicateur": "Disponibilité Usine Sud",
+      "valeur": 97.8,
+      "unite": "%"
+    },
+    {
+      "id": 5,
+      "indicateur": "Temps moyen d'acquittement",
+      "valeur": 14,
+      "unite": "min"
+    }
+  ],
   "mesures": [
     {
       "id": 1,

@@ -55,6 +55,7 @@ Ext.define('VIGIE.view.main.Main', {
             switch (i.itemId) {
                 case 'champFiltre': i.emptyText = L.FILTRER; break;
                 case 'btnApropos':  i.text = L.APROPOS; break;
+                case 'btnAdmin':    i.text = L.ADMIN; break;
                 // E2 : le bouton affiche la locale CIBLE de la bascule.
                 case 'btnLocale':   i.text = (VIGIE.Locale.locale === 'fr') ? 'EN' : 'FR'; break;
             }
@@ -79,6 +80,8 @@ Ext.define('VIGIE.view.main.Main', {
                 { xtype: 'tbfill' },
                 { xtype: 'textfield', itemId: 'champFiltre', width: 200 },
                 { itemId: 'btnApropos', reference: 'btnApropos', handler: 'onApropos' },
+                // Route protégée #admin (voir VIGIE.controller.Navigation)
+                { itemId: 'btnAdmin', handler: 'onAdmin' },
                 // E2 : bascule de locale — recharge l'app avec ?locale=en|fr.
                 { itemId: 'btnLocale', handler: 'onBasculerLocale',
                   tooltip: 'Changer de langue / switch language' }

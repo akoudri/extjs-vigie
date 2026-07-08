@@ -17,6 +17,12 @@ Ext.define('VIGIE.view.main.MainController', {
         VIGIE.Locale.basculer();
     },
 
+    // Route protégée : `force` rejoue la route même si le hash vaut déjà
+    // « admin » (login refermé sans se connecter, fenêtre déjà fermée…).
+    onAdmin: function () {
+        this.redirectTo('admin', { force: true });
+    },
+
     onApropos: function () {
         Ext.create('Ext.window.Window', {
             title: 'À propos de VIGIE',

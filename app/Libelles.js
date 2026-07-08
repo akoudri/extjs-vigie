@@ -15,5 +15,16 @@ Ext.define('VIGIE.Libelles', {
     EXPORTER:    'Exporter (CSV)',
     FILTRER:     'Filtrer…',
     APROPOS:     'À propos',
-    TELEMETRIE:  'Télémétrie'
+    TELEMETRIE:  'Télémétrie',
+
+    // Route protégée #admin
+    ADMIN:                  'Admin',
+    CONNEXION:              'Connexion',
+    DECONNEXION:            'Déconnexion',
+    IDENTIFIANT:            'Identifiant',
+    MOT_DE_PASSE:           'Mot de passe',
+    IDENTIFIANTS_INVALIDES: 'Identifiants invalides',
+    STATISTIQUES:           'Statistiques (accès restreint)',
+    INDICATEUR:             'Indicateur',
+    VALEUR:                 'Valeur'
 });

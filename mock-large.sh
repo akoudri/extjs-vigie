@@ -4,4 +4,4 @@
 # Remplace mock.sh le temps de la démo buffered store (même port).
 cd "$(dirname "$0")"
 node mock/genere-alarmes.js "${1:-10000}"
-exec npx json-server@0.17.4 mock/db-large.json --port 3000
+exec npx json-server@0.17.4 mock/db-large.json --port 3000 --middlewares mock/auth.js
