@@ -6,7 +6,8 @@
   "template": "classicdesktop",
   "indexHtmlPath": "index.html",
   "requires": [
-    "font-awesome"
+    "font-awesome",
+    "charts"
   ],
 
   "builds": {

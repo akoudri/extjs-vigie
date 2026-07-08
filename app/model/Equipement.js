@@ -33,6 +33,11 @@ Ext.define('VIGIE.model.Equipement', {
     proxy: {
         type: 'rest',
         url: 'http://localhost:3000/equipements',
-        reader: { type: 'json' }   // json-server renvoie un tableau nu : pas de rootProperty
+        reader: { type: 'json' },   // json-server renvoie un tableau nu : pas de rootProperty
+        // Lab 6 (E1/E2) : même précaution que pour Alarme — le PUT de
+        // json-server REMPLACE la ressource ; un writer partiel y effacerait
+        // les champs non modifiés. PATCH ne pousse que le delta.
+        writer: { type: 'json', writeAllFields: false },
+        actionMethods: { create: 'POST', read: 'GET', update: 'PATCH', destroy: 'DELETE' }
     }
 });
