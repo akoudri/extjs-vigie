@@ -19,7 +19,20 @@ Ext.define('VIGIE.view.main.Main', {
     controller: 'main',
     viewModel: 'main',
 
-    requires: ['VIGIE.view.alarmes.Journal', 'VIGIE.Libelles', 'VIGIE.Locale'],
+    // Lab 8 : toutes ces classes ne sont référencées que par des ALIAS chaîne
+    // (`plugins: 'responsive'`, `store: { type: 'mesures' }`, `axes[].type`,
+    // `series[].type`), que le compilateur ne résout pas. Sans ces requires
+    // explicites, le build de PRODUCTION démarre sur « c is not a
+    // constructor » (en dev, tout le framework est chargé, rien ne manque).
+    requires: [
+        'VIGIE.view.alarmes.Journal', 'VIGIE.Libelles', 'VIGIE.Locale',
+        'VIGIE.store.Mesures',
+        'Ext.plugin.Responsive',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Time',
+        'Ext.chart.series.Line',
+        'Ext.draw.sprite.Circle'    // marqueur par défaut de `marker: true`
+    ],
 
     layout: 'border',
 

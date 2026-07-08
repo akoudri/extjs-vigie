@@ -71,7 +71,7 @@
       "site": "Usine Sud",
       "severite": "basse",
       "message": "Maintenance planifiée",
-      "acquittee": true,
+      "acquittee": false,
       "horodatage": "2024-06-01T10:20:00"
     },
     {

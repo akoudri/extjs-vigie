@@ -10,6 +10,8 @@
     "charts"
   ],
 
+  "theme": "theme-vigie",
+
   "builds": {
     "desktop": {
       "toolkit": "classic",
