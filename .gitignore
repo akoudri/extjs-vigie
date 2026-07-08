@@ -1,4 +1,5 @@
 *.log
+token.txt
 node_modules
 build
 generatedFiles

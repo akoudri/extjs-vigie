@@ -1,0 +1,16 @@
+# Sans ce fichier, COPY . . écraserait le node_modules installé dans
+# l'image par celui de l'hôte, et gonflerait le contexte de build.
+node_modules
+build
+.git
+.github
+.claude
+.playwright-mcp
+labs
+generatedFiles
+mock
+test
+*.log
+*.pdf
+Dockerfile
+.dockerignore
