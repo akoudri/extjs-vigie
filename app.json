@@ -13,7 +13,7 @@
   "builds": {
     "desktop": {
       "toolkit": "classic",
-      "theme": "theme-material",
+      "theme": "theme-vigie",
       "sass": {
         "generated": {
           "var": "${build.id}/sass/save.scss",

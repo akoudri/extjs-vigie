@@ -25,10 +25,10 @@
 Ext.define('VIGIE.view.alarmes.Journal', {
     extend: 'Ext.grid.Panel',
     xtype: 'journal-alarmes',
-    title: "Journal d'alarmes",
 
     requires: [
         'VIGIE.util.Severite',
+        'VIGIE.Libelles',
         'Ext.window.Toast'
     ],
 
@@ -52,7 +52,7 @@ Ext.define('VIGIE.view.alarmes.Journal', {
     }],
 
     tbar: [{
-        text: 'Exporter (CSV)',
+        itemId: 'btnExporter',
         handler: function (btn) {
             btn.up('grid').exportCsv();
         }
@@ -93,6 +93,12 @@ Ext.define('VIGIE.view.alarmes.Journal', {
 
     initComponent: function () {
         VIGIE.util.Severite.injecterCss();
+        // Lab 7 : libellés externalisés, résolus à l'instanciation (le
+        // singleton est déjà substitué en EN si `?locale=en`).
+        this.title = VIGIE.Libelles.JOURNAL;
+        Ext.Array.findBy(this.tbar, function (i) {
+            return i.itemId === 'btnExporter';
+        }).text = VIGIE.Libelles.EXPORTER;
         this.callParent();
     },
 

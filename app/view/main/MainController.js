@@ -11,6 +11,12 @@ Ext.define('VIGIE.view.main.MainController', {
 
     requires: ['VIGIE.domain.Equipement'],
 
+    // E2 (Lab 7) : bascule FR ↔ EN — recharge l'app dans l'autre locale,
+    // deep-link #equipement/:id préservé (voir VIGIE.Locale.basculer).
+    onBasculerLocale: function () {
+        VIGIE.Locale.basculer();
+    },
+
     onApropos: function () {
         Ext.create('Ext.window.Window', {
             title: 'À propos de VIGIE',

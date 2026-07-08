@@ -1,0 +1,27 @@
+{
+  "name": "theme-vigie",
+  "version": "1.0.0",
+  "description": "Thème de marque VIGIE (Lab 7 - E1), dérivé de Triton",
+  "sencha": {
+    "name": "theme-vigie",
+    "namespace": "Ext",
+    "type": "theme",
+    "extend": "theme-triton",
+    "framework": "ext",
+    "toolkit": "classic",
+    "creator": "VIGIE",
+    "summary": "Thème de marque VIGIE",
+    "detailedDescription": "Dérivé de Triton ; surcharge les variables Fashion aux couleurs VIGIE (sarcelle télémétrie, ambre balise).",
+    "version": "1.0.0",
+    "compatVersion": "1.0.0",
+    "format": "1",
+    "output": "${package.dir}/build",
+    "local": true,
+    "sass": {
+      "namespace": "Ext",
+      "etc": "${package.dir}/sass/etc/all.scss",
+      "var": "${package.dir}/sass/var/all.scss",
+      "src": "${package.dir}/sass/src/all.scss"
+    }
+  }
+}

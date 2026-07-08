@@ -1,0 +1,10 @@
+// Lab 7 (E1) - Thème de marque VIGIE : surcharges Fashion sur Triton.
+//
+// `dynamic()` inscrit la variable dans le graphe de dépendances de Fashion :
+// toutes les variables Triton dérivées de $base-color (boutons, sélection,
+// toolbars…) sont recalculées à partir de ces valeurs. Avec `sencha app
+// watch`, Fashion recompile à la volée : modifier une valeur ici met le rendu
+// à jour sans rebuild complet.
+
+$base-color: dynamic(#2BB3AD);           // sarcelle (télémétrie)
+$base-highlight-color: dynamic(#F2A340); // ambre (balise)

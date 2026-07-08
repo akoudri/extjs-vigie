@@ -1,9 +1,16 @@
 /**
- * Shell applicatif de VIGIE - Lab 6 (dashboard).
+ * Shell applicatif de VIGIE - Lab 6 (dashboard) + Lab 7 (SPA).
  *
  * Assemble la sélection : arbre Site → Zone → Équipement (ouest), fil d'Ariane
  * (nord, même TreeStore que l'arbre), chart de télémétrie + journal filtré
  * (centre). La sélection d'un nœud pilote l'ensemble via onNodeSelect.
+ *
+ * E3 (esquisse) : pour une vraie cible tactile, on ajouterait un build
+ * `modern` dans app.json — composants du toolkit modern (Ext.grid.Grid,
+ * navigation par cartes plutôt que border layout, événements touch natifs),
+ * le microloader servant le bon build selon le device ; stores, modèles et
+ * ViewModels resteraient partagés. Ici on reste en classic : le responsive
+ * ré-agence les régions (arbre ouest → bandeau nord sous 600 px).
  */
 Ext.define('VIGIE.view.main.Main', {
     extend: 'Ext.panel.Panel',
@@ -12,12 +19,35 @@ Ext.define('VIGIE.view.main.Main', {
     controller: 'main',
     viewModel: 'main',
 
-    requires: ['VIGIE.view.alarmes.Journal'],
+    requires: ['VIGIE.view.alarmes.Journal', 'VIGIE.Libelles', 'VIGIE.Locale'],
 
     layout: 'border',
 
     listeners: {
         equipementchoisi: 'onEquipementChoisi'
+    },
+
+    // Libellés résolus à l'instanciation : le singleton est garanti défini à
+    // ce moment — et déjà substitué par VIGIE.Locale si `?locale=en` (E2).
+    initComponent: function () {
+        var L = VIGIE.Libelles,
+            regions = {};
+
+        Ext.Array.each(this.items, function (i) { regions[i.region] = i; });
+
+        regions.west.title = L.SITES;
+        regions.center.items[0].title = L.TELEMETRIE;
+
+        Ext.Array.each(regions.north.items, function (i) {
+            switch (i.itemId) {
+                case 'champFiltre': i.emptyText = L.FILTRER; break;
+                case 'btnApropos':  i.text = L.APROPOS; break;
+                // E2 : le bouton affiche la locale CIBLE de la bascule.
+                case 'btnLocale':   i.text = (VIGIE.Locale.locale === 'fr') ? 'EN' : 'FR'; break;
+            }
+        });
+
+        this.callParent();
     },
 
     items: [
@@ -34,25 +64,32 @@ Ext.define('VIGIE.view.main.Main', {
                     bind: { store: '{arbo}' }
                 },
                 { xtype: 'tbfill' },
-                { xtype: 'textfield', emptyText: 'Filtrer…', width: 200 },
-                { text: 'À propos', reference: 'btnApropos', handler: 'onApropos' }
+                { xtype: 'textfield', itemId: 'champFiltre', width: 200 },
+                { itemId: 'btnApropos', reference: 'btnApropos', handler: 'onApropos' },
+                // E2 : bascule de locale — recharge l'app avec ?locale=en|fr.
+                { itemId: 'btnLocale', handler: 'onBasculerLocale',
+                  tooltip: 'Changer de langue / switch language' }
             ]
         },
         {
             region: 'west',
             xtype: 'treepanel',
             reference: 'arbre',
-            title: 'Sites',
+            itemId: 'arbreSites',
             width: 280,
             split: true,
             rootVisible: false,
             bind: { store: '{arbo}' },
             listeners: { select: 'onNodeSelect' },
-            // E1 : réorganisation par glisser-déposer ; le drop est persisté
-            // côté API (zoneId de l'équipement) par onNodeDrop.
-            viewConfig: {
-                plugins: { treeviewdragdrop: { appendOnly: false } },
-                listeners: { drop: 'onNodeDrop' }
+            // Lab 7 : largeur adaptative. E3 : sous 600 px, l'arbre quitte la
+            // région ouest pour un bandeau nord replié en hauteur — chart et
+            // journal reprennent toute la largeur, empilés dessous.
+            plugins: 'responsive',
+            responsiveConfig: {
+                'width < 600':  { region: 'north', height: 150 },
+                'width >= 600': { region: 'west' },
+                'width >= 600 && width < 900': { width: 180 },
+                'width >= 900': { width: 280 }
             }
         },
         {
@@ -65,13 +102,13 @@ Ext.define('VIGIE.view.main.Main', {
                     reference: 'chart',
                     title: 'Télémétrie',
                     height: 220,
+                    // Lab D7 : hauteur adaptative.
+                    plugins: 'responsive',
+                    responsiveConfig: {
+                        'height < 700':  { height: 160 },
+                        'height >= 700': { height: 220 }
+                    },
                     store: { type: 'mesures' },
-                    // E3 : simulation d'une télémétrie vivante (une mesure/2 s).
-                    tbar: [{
-                        text: 'Simuler le flux',
-                        enableToggle: true,
-                        toggleHandler: 'onToggleSimulation'
-                    }],
                     axes: [
                         { type: 'numeric', position: 'left',   title: 'Valeur' },
                         { type: 'time',    position: 'bottom', title: 'Temps', dateFormat: 'H:i' }
@@ -79,39 +116,6 @@ Ext.define('VIGIE.view.main.Main', {
                     series: [{ type: 'line', xField: 'horodatage', yField: 'valeur', marker: true }]
                 },
                 { xtype: 'journal-alarmes', reference: 'journal', flex: 1 }
-            ]
-        },
-        {
-            // E2 : formulaire de configuration lié à l'enregistrement courant
-            // du ViewModel ; le bouton ne s'active que si le record est dirty.
-            region: 'east',
-            xtype: 'form',
-            title: 'Configuration',
-            reference: 'formConfig',
-            width: 260,
-            split: true,
-            bodyPadding: 10,
-            items: [
-                {
-                    xtype: 'textfield',
-                    fieldLabel: 'Nom',
-                    bind: '{equipementCourant.nom}',
-                    allowBlank: false
-                },
-                {
-                    xtype: 'combobox',
-                    fieldLabel: 'État',
-                    bind: '{equipementCourant.etat}',
-                    store: ['OK', 'DEFAUT', 'MAINTENANCE'],
-                    editable: false
-                }
-            ],
-            buttons: [
-                {
-                    text: 'Enregistrer',
-                    handler: 'onEnregistrer',
-                    bind: { disabled: '{!equipementCourant.dirty}' }
-                }
             ]
         }
     ]
